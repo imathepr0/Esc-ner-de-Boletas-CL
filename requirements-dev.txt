@@ -1,0 +1,17 @@
+# Dependencias solo para desarrollo y testing (no se necesitan para
+# correr el backend en producción; ver requirements.txt para eso).
+#
+# Instalar con: pip install -r requirements.txt -r requirements-dev.txt
+
+pytest==9.1.1
+
+# httpx2 es lo que usa TestClient de FastAPI/Starlette actualmente;
+# httpx se mantiene como respaldo por si alguna dependencia lo requiere.
+httpx==0.28.1
+httpx2==2.7.0
+
+# Solo para generar códigos PDF417 sintéticos en las pruebas del timbre
+# electrónico (tests/test_timbre_and_quality.py): el backend en sí solo
+# DECODIFICA (ver pdf417decoder/pyzbar en requirements.txt), nunca
+# genera códigos.
+pdf417gen==0.8.1
