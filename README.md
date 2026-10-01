@@ -116,6 +116,38 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ~~~
 
+### Render
+
+El repositorio incluye un `Dockerfile` que instala Python 3.11, Tesseract OCR con
+el idioma español (`spa`) y ZBar para leer el PDF417. Se usa Docker porque el
+servicio necesita paquetes del sistema que no se instalan con `pip`. La imagen
+escucha en el puerto definido por Render mediante `PORT` y procesa las imágenes
+solo en memoria.
+
+En Render crea o configura un **Web Service** conectado a este repositorio:
+
+- **Language / Runtime:** Docker
+- **Branch:** `main`
+- **Root Directory:** vacío, porque `Dockerfile`, `requirements.txt` y `app/`
+  están en la raíz del repositorio
+- **Dockerfile Path:** `./Dockerfile` (o el valor predeterminado)
+- **Docker Command:** vacío, para usar el `CMD` del Dockerfile
+- **Health Check Path:** `/health`
+- **Environment Variables:** no se necesitan para que Tesseract funcione; la
+  imagen ya instala Tesseract y fija `TESSERACT_CMD=/usr/bin/tesseract`
+
+No uses el runtime Python nativo, porque no incluye Tesseract ni `spa`. Tampoco
+hay que ingresar `PORT`: Render lo asigna automáticamente. Para permitir llamadas
+desde un frontend desplegado, agrega `CORS_ORIGINS` con el origen del frontend en
+formato JSON, por ejemplo `["https://tu-frontend.example"]`.
+
+Después del despliegue, comprueba `https://TU-SERVICIO.onrender.com/health` y
+prueba `POST /api/v1/boletas/scan` con una imagen real desde `/docs`. Un `200` en
+`/health` solo confirma que la API arrancó; el escaneo real permite comprobar
+Tesseract. El plan gratuito dispone de recursos limitados y puede no tener RAM
+suficiente para todas las imágenes; ante cierres por memoria, reduce el tamaño
+de imagen de prueba o considera un plan con más memoria.
+
 ## Configuración
 
 La configuración principal está en app/config.py y puede sobrescribirse mediante
