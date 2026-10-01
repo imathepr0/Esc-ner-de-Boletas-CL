@@ -159,8 +159,8 @@ variables de entorno o un archivo .env local. El archivo .env está excluido por
 | TESSERACT_CMD | vacío | Ruta al ejecutable de Tesseract cuando no está en el PATH |
 | TESSERACT_LANG | spa | Idioma usado por el OCR |
 | MAX_FILE_SIZE_MB | 10 | Tamaño máximo del archivo recibido |
-| MAX_PROCESSING_TIME_SECONDS | 120 | Límite de procesamiento del pipeline |
-| TIMEOUT_MARGEN_SEGUNDOS | 15 | Margen del timeout HTTP |
+| MAX_PROCESSING_TIME_SECONDS | 300 | Límite de procesamiento del pipeline |
+| TIMEOUT_MARGEN_SEGUNDOS | 30 | Margen del timeout HTTP |
 | CORS_ORIGINS | localhost:5173 | Orígenes permitidos para el frontend |
 
 Ejemplo de .env local en Windows:

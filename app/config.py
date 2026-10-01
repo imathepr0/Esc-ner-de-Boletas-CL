@@ -34,14 +34,14 @@ class Settings(BaseSettings):
     # --- Reintentos automáticos (se usa desde la Etapa 7) ---
     MAX_RETRY_ATTEMPTS: int = 3
     # El OCR puede tardar bastante más en instancias pequeñas (por ejemplo,
-    # Render Free con 0.1 CPU). Se permite hasta 120s de trabajo total para
+    # Render Free con 0.1 CPU). Se permite hasta 300s de trabajo total para
     # que los reintentos terminen antes de devolver un resultado incompleto.
-    MAX_PROCESSING_TIME_SECONDS: float = 120.0
+    MAX_PROCESSING_TIME_SECONDS: float = 300.0
 
     # --- Timeout duro a nivel de endpoint (se usa desde la Etapa 8) ---
     # Margen para que el pipeline salga limpiamente después de alcanzar
     # su límite "suave" entre intentos; luego actúa este timeout duro.
-    TIMEOUT_MARGEN_SEGUNDOS: float = 15.0
+    TIMEOUT_MARGEN_SEGUNDOS: float = 30.0
 
     # --- Salida anticipada del loop de variantes de imagen (Etapa 7,
     # Opción 6 de VISION_Y_ROADMAP.md — implementada en sesión de
